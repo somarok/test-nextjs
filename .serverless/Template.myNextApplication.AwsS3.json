@@ -1,0 +1,6 @@
+{
+  "name": "fapik-test-buket",
+  "region": "us-east-1",
+  "accelerated": true,
+  "url": "https://fapik-test-buket.s3.amazonaws.com"
+}

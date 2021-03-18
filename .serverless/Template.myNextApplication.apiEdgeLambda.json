@@ -1,0 +1,17 @@
+{
+  "name": "lhn93fj-hbppaefo",
+  "hash": "0TT/020TBoE2bcI78qPnLoP++drs7ntW/Ulz2dvlp7c=",
+  "description": "API Lambda@Edge for Next CloudFront distribution",
+  "memory": 512,
+  "timeout": 10,
+  "code": "C:\\Users\\yoonj\\OneDrive\\문서\\프로젝트\\test\\test-nextjs\\.serverless_nextjs\\api-lambda",
+  "shims": [],
+  "handler": "index.handler",
+  "runtime": "nodejs12.x",
+  "env": {},
+  "role": {
+    "arn": "arn:aws:iam::575653425596:role/lhn93fj-vjo7ap"
+  },
+  "arn": "arn:aws:lambda:us-east-1:575653425596:function:lhn93fj-hbppaefo",
+  "region": "us-east-1"
+}

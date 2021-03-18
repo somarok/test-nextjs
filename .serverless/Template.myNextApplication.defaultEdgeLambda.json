@@ -1,0 +1,17 @@
+{
+  "name": "lhn93fj-vcucmsb",
+  "hash": "WvWazZneqTsSUkGQpSWeouOviuxVY387GKDYQ0PT0TY=",
+  "description": "Default Lambda@Edge for Next CloudFront distribution",
+  "memory": 512,
+  "timeout": 10,
+  "code": "C:\\Users\\yoonj\\OneDrive\\문서\\프로젝트\\test\\test-nextjs\\.serverless_nextjs\\default-lambda",
+  "shims": [],
+  "handler": "index.handler",
+  "runtime": "nodejs12.x",
+  "env": {},
+  "role": {
+    "arn": "arn:aws:iam::575653425596:role/lhn93fj-hommvjo"
+  },
+  "arn": "arn:aws:lambda:us-east-1:575653425596:function:lhn93fj-vcucmsb",
+  "region": "us-east-1"
+}
