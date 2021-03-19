@@ -8,7 +8,8 @@
     "type-check": "tsc",
     "lint": "eslint --ext .js,.ts,.jsx,.tsx --ignore-path .gitignore .",
     "lint:fix": "eslint --fix --ext .js,.ts,.jsx,.tsx --ignore-path .gitignore .",
-    "deploy": "serverless deploy"
+    "deploy:staging": "sls deploy --stage staging -v", 
+    "deploy:production": "sls deploy --stage production -v" 
   },
   "dependencies": {
     "@zeit/next-css": "^1.0.1",
