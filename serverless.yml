@@ -1,9 +1,0 @@
-myNextApplication:
-  component: '@sls-next/serverless-component@1.18.0'
-  inputs:
-    bucketName: 'fapik-test-buket'
-    cloudfront:
-      distributionId: EETC7TWRX5LBZ
-    name:
-      defaultLambda: 'fapik-exemple-default-lambda'
-      apiLambda: 'fapik-exemple-api-lambda'

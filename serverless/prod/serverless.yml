@@ -1,0 +1,10 @@
+fapikDevNext:
+  component: '@sls-next/serverless-component@1.18.0' # it is recommended you pin the latest stable version of serverless-next.js
+  inputs:
+    bucketName: test-fapik-s3
+    cloudfront:
+      distributionId: E2NWLRMFC5KMR2
+    name:
+      defaultLambda: test-fapik-default-lambda
+      apiLambda: test-fapik-api-lambda
+    nextConfigDir: ../../

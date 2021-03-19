@@ -2,32 +2,43 @@ version: 2.1
 
 orbs:
   aws-cli: circleci/aws-cli@0.1.13
+
 executors:
   default:
     docker:
-      - image: circleci/node:10.0.0
-    working_directory: ~/with-typescript
+      - image: circleci/node:12.0.0
+    working_directory: ~/test-nextjs
+
 commands:
   restore_yarn:
     steps:
       - restore_cache:
           key: yarn-v1-{{ checksum "yarn.lock" }}-{{ arch }}-{{ .Branch }}
-save_yarn:
+
+  save_yarn:
     steps:
       - save_cache:
           key: yarn-v1-{{ checksum "yarn.lock" }}-{{ arch }}-{{ .Branch }}
           paths:
             - ~/.cache/yarn
-restore_node:
+
+  restore_node:
     steps:
       - restore_cache:
           key: node-v1-{{ checksum "package.json" }}-{{ arch }}-{{ .Branch }}
-save_node:
+
+  save_node:
     steps:
       - save_cache:
           key: node-v1-{{ checksum "package.json" }}-{{ arch }}-{{ .Branch }}
           paths:
             - node_modules
+
+  store_build_artifacts:
+    steps:
+      - store_artifacts:
+          path: .next
+
 jobs:
   node:
     executor:
@@ -39,7 +50,65 @@ jobs:
       - run: yarn
       - save_yarn
       - save_node
+
+  deploy:
+    parameters:
+      env:
+        type: enum
+        enum: ['main', 'dev']
+      aws-access-key-id:
+        type: env_var_name
+      aws-secret-access-key:
+        type: env_var_name
+      aws-region:
+        type: env_var_name
+    executor:
+      name: default
+    steps:
+      - checkout
+      - restore_yarn
+      - restore_node
+      - run: yarn
+      - save_yarn
+      - save_node
+      - aws-cli/install
+      - aws-cli/configure:
+          aws-access-key-id: << parameters.aws-access-key-id >>
+          aws-secret-access-key: << parameters.aws-secret-access-key >>
+          aws-region: << parameters.aws-region >>
+      - run: yarn deploy:<< parameters.env >>
+      - store_build_artifacts
+
 workflows:
   build_and_deploy:
     jobs:
       - node
+
+      # dev
+      - deploy: &deploy
+          env: dev
+          aws-access-key-id: AWS_ACCESS_KEY_ID
+          aws-secret-access-key: AWS_SECRET_ACCESS_KEY
+          aws-region: AWS_DEFAULT_REGION
+
+          requires:
+            - node
+          name: deploy_dev
+          filters:
+            branches:
+              only: dev
+            tags:
+              ignore: /.*/
+
+      # main
+      - deploy:
+          <<: *deploy
+
+          env: main
+
+          name: deploy_main
+          filters:
+            branches:
+              only: main
+            tags:
+              ignore: /.*/
